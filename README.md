@@ -1,15 +1,21 @@
 # Istanbul Apartment Price Prediction
 
+![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)
+![LightGBM](https://img.shields.io/badge/LightGBM-R²%200.85-9ACD32)
+![License](https://img.shields.io/badge/License-MIT-green)
+
 An end-to-end data mining project on **24,767 Istanbul apartment listings**: exploratory analysis, EDA-driven feature engineering, and a three-model benchmark that lands at a cross-validated **R² of 0.85**.
 
 ---
 
 ## The two notebooks
 
-| Notebook | What it covers |
-|---|---|
-| [`comprehensive-eda.ipynb`](comprehensive-eda.ipynb) | Data quality assessment, price distribution and outlier analysis, district and neighborhood breakdown, size/room analysis, correlation study |
-| [`price-prediction.ipynb`](price-prediction.ipynb) | Cleaning informed by the EDA, feature engineering, model tournament, and interpretation of the winning model |
+Both run in the browser — no local setup needed:
+
+| Notebook | What it covers | |
+|---|---|---|
+| [`comprehensive-eda.ipynb`](comprehensive-eda.ipynb) | Data quality assessment, price distribution and outlier analysis, district and neighborhood breakdown, size/room analysis, correlation study | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/dorukozcan/istanbul-apartment-price-prediction/blob/main/comprehensive-eda.ipynb) |
+| [`price-prediction.ipynb`](price-prediction.ipynb) | Cleaning informed by the EDA, feature engineering, model tournament, and interpretation of the winning model | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/dorukozcan/istanbul-apartment-price-prediction/blob/main/price-prediction.ipynb) |
 
 Every preparation step in the modeling notebook traces back to a specific finding in the EDA — nothing is cleaned or engineered "just in case".
 
@@ -68,3 +74,7 @@ Python · pandas · NumPy · scikit-learn · LightGBM · Matplotlib · Seaborn �
 ## Data provenance
 
 The dataset was compiled from public Istanbul real-estate listings for academic coursework and is included here for reproducibility. It is not affiliated with, endorsed by, or licensed from any listing platform, and should not be used commercially.
+
+## License
+
+The code and notebooks in this repository are released under the [MIT License](LICENSE). **The license covers the code only — not `data/istanbul_apartment_prices_2026.csv`**, which is provided for reproducibility under the terms described above.
