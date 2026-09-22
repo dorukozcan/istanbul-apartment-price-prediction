@@ -4,7 +4,7 @@
 ![LightGBM](https://img.shields.io/badge/LightGBM-R²%200.85-9ACD32)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-An end-to-end data mining project on **24,767 Istanbul apartment listings**: exploratory analysis, EDA-driven feature engineering, and a three-model benchmark that lands at a cross-validated **R² of 0.85**.
+An end-to-end data mining project on **24,767 Istanbul apartment listings**: exploratory analysis, EDA-driven feature engineering, and a three-model benchmark. LightGBM reaches **R² 0.85** in 5-fold cross-validation (log price) and **21% MAPE** on a held-out test set.
 
 ---
 
@@ -21,7 +21,7 @@ Every preparation step in the modeling notebook traces back to a specific findin
 
 ## Dataset
 
-`data/istanbul_apartment_prices_2026.csv` — 24,767 listings across **38 districts** and **583 neighborhoods**, with 26 columns covering price, area (gross/net m²), room layout, floor, building age and type, heating and fuel, bathroom count, furnishing, complex membership, orientation and maintenance fee.
+`data/istanbul_apartment_prices_2026.csv` — 24,767 listings across **38 districts** and **583 neighborhoods**, with 30 columns covering price, area (gross/net m²), room layout, floor, building age and type, heating and fuel, bathroom count, furnishing, complex membership, orientation and maintenance fee.
 
 No duplicate listings; core fields (price, location, room count, area) are complete.
 
@@ -34,7 +34,7 @@ No duplicate listings; core fields (price, location, room count, area) are compl
 
 ## Modeling
 
-After cleaning and feature engineering — 19 columns kept, 11 dropped, **9 new features engineered from EDA insights**, giving **28 features across 24,250 samples** — three models of increasing complexity were trained on the same split:
+After cleaning and feature engineering — 19 columns kept, 11 dropped, **9 new features engineered from EDA insights**, giving **28 features across 24,250 samples** — three models of increasing complexity were trained on the same 80/20 split. Metrics are computed on the **held-out 20% in Turkish lira**, after transforming predictions back from log price:
 
 | Model | MAE (₺) | RMSE (₺) | R² | MAPE (%) |
 |---|---:|---:|---:|---:|
@@ -53,6 +53,14 @@ Mean:   R² = 0.8479 ± 0.0040
 ```
 
 The tight ±0.004 spread across folds indicates the model generalizes consistently rather than fitting one lucky split.
+
+> **Two different R² values.** The cross-validated R² (0.85) is measured on the **log-price** target the model is trained on. The holdout R² in the table above (0.78) is measured **in Turkish lira**, where the most expensive listings dominate the squared error. Both are reported on purpose; MAPE (21%) is the easiest number to interpret.
+
+## Caveats and next steps
+
+- **Weak linear baseline.** District and neighbourhood are label-encoded (one integer per category), which suits trees but penalises linear regression. One-hot or target encoding would give a fairer baseline.
+- **Outlier filter before the split.** Price outliers (1st–99th percentile) are removed before the train/test split, so the test set never contains extreme listings.
+- **Default hyperparameters.** LightGBM runs with default settings. Tuning and SHAP-based interpretation are the natural next steps.
 
 ## Running it
 
